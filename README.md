@@ -22,7 +22,7 @@ You should see your application running on [localhost:3000](http://localhost:300
 ```json
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js" // <-- this right here.
+    "start": "node index.js"
   },
 ```
 So, `npm start` translates to `node index.js`, which runs the [index.js](index.js) script, assigning the port and starting the express application.
@@ -36,4 +36,13 @@ You should be able to view the webapp in your browser. *Note, the port may be di
 ```bash
 heroku login
 ```
-
+Create and deploy your node application:
+```bash
+heroku create
+git push heroku master
+```
+And that's it! See your app in the browser by copying the url in the terminal, or by typing in the following command:
+```bash
+heroku open
+```
+You may also login to the [heroku web console](https://dashboard.heroku.com) in your browser to see the current list of projects.
