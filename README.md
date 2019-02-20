@@ -1,9 +1,17 @@
+# Contents
+ - [What You'll Need](#what-youll-need)
+ - [Deployment Instructions](#deployment-instructions)
+   - [Setup](#setup-on-your-local-machine)
+   - [Deploy](#deploy-to-heroku-using-the-cli)
+   - [Update](#update-your-project)
+ - [TL;DR](#tldr)
+
 # What You'll Need
  - [**git**](https://git-scm.com/downloads).
  - [**Node**](https://nodejs.org/en/) (and npm) installed. 
  - A free [**Heroku**](https://www.heroku.com/home) account. 
  - Intall the [**Heroku CLI**](https://devcenter.heroku.com/articles/heroku-cli).
- - A modern code editor like [**VS Code**](https://code.visualstudio.com) or [**Atom**](https://atom.io/).
+ - A modern code editor, like [**VS Code**](https://code.visualstudio.com) or [**Atom**](https://atom.io/).
 
 # Deployment Instructions
 
