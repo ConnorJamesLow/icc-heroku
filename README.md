@@ -3,6 +3,7 @@
  - [**Node**](https://nodejs.org/en/) (and npm) installed. 
  - A free [**Heroku**](https://www.heroku.com/home) account. 
  - Intall the [**Heroku CLI**](https://devcenter.heroku.com/articles/heroku-cli).
+ - A modern code editor like [**VS Code**](https://code.visualstudio.com) or [**Atom**](https://atom.io/).
 
 # Deployment Instructions
 
@@ -66,4 +67,14 @@ git add <space separated list of files>
 git commit -am "This is a commit message so you can give a short summary of what you changed."
 git push heroku master
 ```
-Wait for the build to pass, then go refresh your app in the browser. You should see your changes!
+Wait for the build to pass, then go refresh your app in the browser. You should see your changes!  
+
+# TL;DR
+Here's a summary of how to get the app up and running on the heroku cloud platorm:
+```bash
+git clone https://github.com/ConnorJamesLow/icc-heroku.git
+cd icc-heroku
+heroku login
+heroku create
+git push heroku master
+```
