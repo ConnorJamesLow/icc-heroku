@@ -19,7 +19,7 @@ npm start
 ```
 You should see your application running on [localhost:3000](http://localhost:3000)! Open up your browser to confirm.  
 
-**Explaination:** `npm install` will look at [package.json](package.json) and find the `"dependencies"` list. It will install the basic requirements for a Node server to run in addition to those dependencies (in our case, the only dependency is express.js). `npm start` runs the `"start"` script seen here:
+**Explanation:** `npm install` will look at [package.json](package.json) and find the `"dependencies"` list. It will install the basic requirements for a Node server to run in addition to those dependencies (in our case, the only dependency is express.js). `npm start` runs the `"start"` script seen here:
 ```json
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -47,7 +47,8 @@ And that's it! See your app in the browser by copying the url in the terminal, o
 heroku open
 ```
 You may also login to the [heroku web console](https://dashboard.heroku.com) in your browser to see the current list of projects.  
-**Explaination:** `heroku create` creates a new project. You can see these on your dashboard by navigating to https://dashboard.heroku.com/apps. `git push heroku master` will deploy your application code to heroku's git client. Heroku will then take care of the build for you.
+
+**Explanation:** `heroku create` creates a new project. You can see these on your dashboard by navigating to https://dashboard.heroku.com/apps. `git push heroku master` will deploy your application code to heroku's git client. Heroku will then take care of the build for you.
 
 ### Update your project
 Hello world is pretty neat, but we want to update our application and make it our own. Since we already have our project here, we can begin editing. However, if you wanted to pull down the project from heroku, you could do so with the following command:
