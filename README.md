@@ -4,7 +4,7 @@
  - A free [**Heroku**](https://www.heroku.com/home) account. 
  - Intall the [**Heroku CLI**](https://devcenter.heroku.com/articles/heroku-cli).
 
-# Instructions
+# Deployment Instructions
 
 ### Setup on your local machine
 Clone or download this template project:  
@@ -48,3 +48,21 @@ heroku open
 ```
 You may also login to the [heroku web console](https://dashboard.heroku.com) in your browser to see the current list of projects.  
 **Explaination:** `heroku create` creates a new project. You can see these on your dashboard by navigating to https://dashboard.heroku.com/apps. `git push heroku master` will deploy your application code to heroku's git client. Heroku will then take care of the build for you.
+
+### Update your project
+Hello world is pretty neat, but we want to update our application and make it our own. Since we already have our project here, we can begin editing. However, if you wanted to pull down the project from heroku, you could do so with the following command:
+```bash
+heroku git:clone -a <name-of-your-cloud-application>
+```
+Make some changes to the files in the **/public** folder. For example, change the `<h1>` element in [index.html](public/index.html) to this:
+```html
+<h1>Hello there</h1>
+```
+Now that you've made some changes, you can preview your updated application using the `heroku local web` from earlier.  
+Looks good? To deploy your updated app, we are going to use the following commands:
+```bash
+git add <space separated list of files>
+git commit -am "This is a commit message so you can give a short summary of what you changed."
+git push heroku master
+```
+Wait for the build to pass, then go refresh your app in the browser. You should see your changes!
