@@ -18,6 +18,7 @@ npm install
 npm start
 ```
 You should see your application running on [localhost:3000](http://localhost:3000)! Open up your browser to confirm.  
+
 **Explaination:** `npm install` will look at [package.json](package.json) and find the `"dependencies"` list. It will install the basic requirements for a Node server to run in addition to those dependencies (in our case, the only dependency is express.js). `npm start` runs the `"start"` script seen here:
 ```json
   "scripts": {
@@ -38,11 +39,12 @@ heroku login
 ```
 Create and deploy your node application:
 ```bash
-heroku create
+heroku create <optional-app-name>
 git push heroku master
 ```
 And that's it! See your app in the browser by copying the url in the terminal, or by typing in the following command:
 ```bash
 heroku open
 ```
-You may also login to the [heroku web console](https://dashboard.heroku.com) in your browser to see the current list of projects.
+You may also login to the [heroku web console](https://dashboard.heroku.com) in your browser to see the current list of projects.  
+**Explaination:** `heroku create` creates a new project. You can see these on your dashboard by navigating to https://dashboard.heroku.com/apps. `git push heroku master` will deploy your application code to heroku's git client. Heroku will then take care of the build for you.
