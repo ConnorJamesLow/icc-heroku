@@ -126,7 +126,7 @@ git push heroku master
 **Before you begin**, make sure you have the most recent version of the repository code. Do a git pull, or clone the repository code. 
 ### Local Install
 Though you don't need to install Mongo to run it in Heroku, you will want to have it for development purposes. If you haven't already, follow the 
-[tutorial](https://docs.mongodb.com/manual/tutorial/) to install the community version of Mongo. For Windows, you may need to add the location of mongo.exe and mongod.exe to your environment variables. Run the `mongo` command to startup the server.
+[tutorial](https://docs.mongodb.com/manual/tutorial/) (or [this one](https://www.tutorialspoint.com/mongodb/) for TutorialsPoint fans, if those exist) to install the community version of Mongo. For Windows, you may need to add the directory location of mongo.exe and mongod.exe to your [environment variables](https://dangphongvanthanh.wordpress.com/2017/06/12/add-mongos-bin-folder-to-the-path-environment-variable/). Run the `mongo` command to startup the server.
 
 ### Commands
 Mongo can be interacted with in a command terminal using JavaScript-like syntax. Some commands to know: 
@@ -134,7 +134,7 @@ Mongo can be interacted with in a command terminal using JavaScript-like syntax.
  - `show dbs`: List all existing databases.
  - `db`: Get the name of your current working database.
  - `use <name of your database>`: Switch your current working database. If you want to create a new database, using this command and inserting data into a collection will add the db to your list.
- - `db.<collection name>.insert( <json formatted data> )`: This command can be used to insert data from your terminal.  For example, you might insert new credentials into a user database like so:
+ - `db.<collection name>.insert( <json formatted data> )`: This command can be used from your terminal to insert data into a collection.  For example, you might insert new credentials into a user database like so:
  ```bash
  db.users.insert({ username: 'General Kenobie', password: 'HelloThere', role: 'Jedi Master' })
  ```
