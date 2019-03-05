@@ -1,5 +1,6 @@
 # Contents
  - [What You'll Need](#what-youll-need)
+ - [Tips](#Tips)
  - [Deployment Instructions](#deployment-instructions)
    - [Setup](#setup-on-your-local-machine)
    - [Deploy](#deploy-to-heroku-using-the-cli)
@@ -10,8 +11,6 @@
    - [Commands](#commands)
 
 # What You'll Need
-### Tips
- - When you see a code snipit surrounded with arrow braces `<like this>`, that's your cue to use your own value.
 ### Deploy to Heroku
  - [**git**](https://git-scm.com/downloads).
  - [**Node**](https://nodejs.org/en/) (and npm) installed. 
@@ -20,6 +19,28 @@
  - A modern code editor, like [**VS Code**](https://code.visualstudio.com) or [**Atom**](https://atom.io/).
 ### MongoDB
  - Install and setup [**MongoDB**](https://docs.mongodb.com/manual/tutorial/).
+
+# Tips
+### Code and Scripting
+ - When you see a code snipit surrounded with arrow braces `<like this>`, that's your cue to use your own value.
+### JSON
+The JSON format consists of comma separated key-value pairs, where *keys are strings* and *values* may be one of the following: *strings; numbers; booleans; arrays; or objects*. JSON objects are defined by surrounding them with *{ brackets }*. Here is an example structure:
+```JSON
+{
+  "name": "John Smith",
+  "age": 35,
+  "isEmployed": true,
+  "degrees": [
+    "High School Diploma",
+    "General A.A.",
+    "B.S. in Computer Programming"
+  ],
+  "contact" : {
+    "phone": "(123)456-8551",
+    "email": "jsmith@my.gcu.edu"
+  }
+}
+```
 
 # Deployment Instructions
 ### Setup on your local machine
@@ -106,7 +127,15 @@ Mongo can be interacted with in a command terminal using JavaScript-like syntax.
  - `show dbs`: List all existing databases.
  - `db`: Get the name of your current working database.
  - `use <name of your database>`: Switch your current working database. If you want to create a new database, using this command and inserting data into a collection will add the db to your list.
- - `db.<collection name>.insert( <json formatted data> )`: This command can be used to insert data from your terminal.
+ - `db.<collection name>.insert( <json formatted data> )`: This command can be used to insert data from your terminal.  For example, you might insert new credentials into a user database like so:
+ ```bash
+ db.users.insert({ username: 'General Kenobie', password: 'HelloThere', role: 'Jedi Master' })
+ ```
+ - `db.<collection name>.find( <query> )`: Get data from a collection. Queries are in JSON format: `{<key>: <expected value>}`. For example, we could search for our previous document like so:
+```bash
+ db.users.find({ username: 'General Kenobie'}) # Find all documents where username equals General Kenobie.
+ db.users.find() # Find all documents
+```
 
 
 ***
