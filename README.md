@@ -4,22 +4,29 @@
    - [Setup](#setup-on-your-local-machine)
    - [Deploy](#deploy-to-heroku-using-the-cli)
    - [Update](#update-your-project)
- - [TL;DR](#tldr)
+   - [TL;DR](#tldr)
+ - [Plug in a Mongo Database](#plug-in-a-mongo-database)
+   - [Local Install](#local-install)
+   - [Commands](#commands)
 
 # What You'll Need
+### Tips
+ - When you see a code snipit surrounded with arrow braces `<like this>`, that's your cue to use your own value.
+### Deploy to Heroku
  - [**git**](https://git-scm.com/downloads).
  - [**Node**](https://nodejs.org/en/) (and npm) installed. 
  - A free [**Heroku**](https://www.heroku.com/home) account. 
  - Intall the [**Heroku CLI**](https://devcenter.heroku.com/articles/heroku-cli).
  - A modern code editor, like [**VS Code**](https://code.visualstudio.com) or [**Atom**](https://atom.io/).
+### MongoDB
+ - Install and setup [**MongoDB**](https://docs.mongodb.com/manual/tutorial/).
 
 # Deployment Instructions
-
 ### Setup on your local machine
 Clone or download this template project:  
 ```bash
 git clone https://github.com/ConnorJamesLow/icc-heroku.git
-cd <app-name:[icc-heroku]>
+cd icc-heroku
 ```
 Intall dependencies and run:
 ```bash
@@ -77,7 +84,7 @@ git push heroku master
 ```
 Wait for the build to pass, then go refresh your app in the browser. You should see your changes!  
 
-# TL;DR
+### TL;DR
 Here's a summary of how to get the app up and running on the heroku cloud platorm:
 ```bash
 git clone https://github.com/ConnorJamesLow/icc-heroku.git
@@ -87,6 +94,22 @@ heroku create
 git push heroku master
 ```  
 
+# Plug in a Mongo Database
+### Local Install
+Though you don't need to install Mongo to run it in Heroku, you will want to have it for 
+development purposes. If you haven't already, follow the 
+[tutorial](https://docs.mongodb.com/manual/tutorial/) to install the community version of Mongo.  
+For Windows, you may need to add the location of mongo.exe and mongod.exe to your environment 
+variables. Run the `mongo` command to startup the server.
+### Commands
+Mongo can be interacted with in a command terminal using JavaScript-like syntax. Some commands to know:  
+ - `show dbs`: List all existing databases.
+ - `db`: Get the name of your current working database.
+ - `use <name of your database>`: Switch your current working database. If you want to create a new database, using this command and inserting data into a collection will add the db to your list.
+ - `db.<collection name>.insert( <json formatted data> )`: This command can be used to insert data from your terminal.
+
+
 ***
 #### Documentation Referenced
-https://devcenter.heroku.com/articles/deploying-nodejs
+https://devcenter.heroku.com/articles/deploying-nodejs  
+https://docs.mongodb.com/manual/tutorial/
