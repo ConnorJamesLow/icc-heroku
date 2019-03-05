@@ -5,7 +5,7 @@
    - [Setup](#setup-on-your-local-machine)
    - [Deploy](#deploy-to-heroku-using-the-cli)
    - [Update](#update-your-project)
-   - [TL;DR](#tldr)
+   - [TL;DR](#heroku-tldr)
  - [Plug in a Mongo Database](#plug-in-a-mongo-database)
    - [Local Install](#local-install)
    - [Commands](#commands)
@@ -13,6 +13,7 @@
    - [Mongo in Heroku Apps](#mongo-in-heroku-apps)
    - [Express REST API](#express-rest-api)
    - [Express Middleware](#express-middleware)
+   - [TL;DR](#mongo-tldr)
 
 # What You'll Need
 ### Deploy to Heroku
@@ -110,7 +111,7 @@ git push heroku master
 ```
 Wait for the build to pass, then go refresh your app in the browser. You should see your changes!  
 
-### TL;DR
+### Heroku TL;DR
 Here's a summary of how to get the app up and running on the heroku cloud platorm:
 ```bash
 git clone https://github.com/ConnorJamesLow/icc-heroku.git
@@ -139,7 +140,7 @@ Mongo can be interacted with in a command terminal using JavaScript-like syntax.
  - `db.<collection name>.find( <query> )`: Get data from a collection. Queries are in JSON format: `{<key>: <expected value>}`. For example, we could search for our previous document like so:
 ```bash
  db.users.find({ username: 'General Kenobie'}) # Find all documents where username equals General Kenobie.
- db.users.find() # Find all documents
+ db.users.find({}) # Find all documents
 ```
 ### Mongo in Node
 We will be using [**Mongoose**](https://www.npmjs.com/package/mongoose) as an interface for Mongo. The dependency was added to our Node.js application with the `npm i mongoose` command. Mongoose provides schemas, which represent the structure of the documents we insert into our database collection. In this example, I store a log of when the node application starts.  
@@ -222,6 +223,21 @@ git commit -a -m "Added more logging"
 git push heroku master
 # wait for the app to build
 heroku open
+```
+### Mongo TL;DR
+Add a mongo db plugin to an existing heroku application:
+```bash
+heroku addons:create mongolab:sandbox
+```
+Use `process.env.MONGODB_URI` to dynamically assign the url in your Node app.  
+Add middleware to your _index.js_ script: 
+```js
+app.all('/api/*', (req, res, next) => {
+  
+  // logic here ...
+
+  next();
+});
 ```
 
 ***
