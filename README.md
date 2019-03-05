@@ -6,7 +6,7 @@
    - [Deploy](#deploy-to-heroku-using-the-cli)
    - [Update](#update-your-project)
    - [TL;DR](#heroku-tldr)
- - [Plug in a Mongo Database](#plug-in-a-mongo-database)
+ - [MongoDB and Express](#mongodb-and-express)
    - [Local Install](#local-install)
    - [Commands](#commands)
    - [Mongo in Node](#mongo-in-node)
@@ -121,7 +121,7 @@ heroku create
 git push heroku master
 ```  
 
-# Plug in a Mongo Database
+# MongoDB and Express
 **Before you begin**, make sure you have the most recent version of the repository code. Do a git pull, or clone the repository code. 
 ### Local Install
 Though you don't need to install Mongo to run it in Heroku, you will want to have it for development purposes. If you haven't already, follow the 
