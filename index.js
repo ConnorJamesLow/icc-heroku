@@ -58,7 +58,10 @@ app.listen(port, () => {
   });
 });
 
+// A GET route that returns some log data fetched from our mongodb.
 app.get('/api/log', (req, res) => {
+
+  // Query the Log collection in our mongodb using the Mongoose library.
   Log.find({}, (err, documents) => {
     if (err) {
       console.warn('Something happened and the query failed :( ');
