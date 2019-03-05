@@ -5,8 +5,7 @@ const mongoose = require('mongoose')
 const app = express();
 
 // configure connection
-const url = 'localhost:27017';
-const collection = 'icc';
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/icc';
 
 // some options to avoid deprecated settings
 const mongooseOptions = {
@@ -16,8 +15,12 @@ const mongooseOptions = {
 };
 
 // connect to the mongo database
-mongoose.connect(`mongodb://${url}/${collection}`, mongooseOptions);
+mongoose.connect(url, mongooseOptions);
 const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+  console.log('Connected to the database');
+});
 
 // A scheam we will interface with when creating documents.
 const Log = mongoose.model(
