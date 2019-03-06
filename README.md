@@ -198,6 +198,9 @@ app.all('/api/*', (req, res, next) => {
 If you run the application again, the server console will display the "_Search successful!_" message, and you will receive the log data back from the server. The `next()` function tells the script to look for more matching routes. It is passed in as the third parameter, following the response.  
 We have just created middleware. You can use middleware to apply additional logic to routes. A use cases might security, or caching. We are going to use it for logging. Add the following lines before the `next()` call within the `app.all` callback function:
 ```js
+app.all('/api/*', (req, res, next) => {
+  console.log('Hello from Express!');
+
   // message containing the http request method and ip origin.
   const message = `${req.method} request from origin ${req.ip}.`;
 
@@ -212,10 +215,13 @@ We have just created middleware. You can use middleware to apply additional logi
       console.error('Execption:', err);
     } else {
 
-      // do somthing with the result data!
+      // do somthing with the result data
       console.log('Successfully added the log!', result);
     }
   });
+
+  next();
+});
 ```
 If you run the app again, you should now see a new log for every time you access the api in addition to the existing startup logs.  
 Finally, let's deploy the changes to Heroku:
