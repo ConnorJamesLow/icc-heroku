@@ -19,6 +19,8 @@
    - [An Introduction to Security with JWTs](#An-Introduction-to-Security-with-JWTs)
    - [Authentication using JWTs](#Authentication-using-JWTs)
    - [Authorization using JWTs](#Authorization-using-JWTs)
+   - [Running Locally](#Running-Locally)
+   - [Running on Heroku](#running-on-heroku)
 
 # What You'll Need
 ### Deploy to Heroku
@@ -450,6 +452,15 @@ verifyToken(token) {
 }
 ```
 6. If the token is valid, execution continues as normal and the logs are returned to the client!
+### Running Locally
+If you run your application, you will quickly discover that you are unable to access your logs: you don't have entries in your mongo database *users* collection! To add one, use the terminal on you local machine to run commands. Start `mongo` then run the following commands to add a user:
+```bash
+use <name_of_your_database>
+db.users.save({ name: "user1" });
+```
+You can see the new user by typing `db.users.find({})`. Run your app again and, when prompted, say you are *"user1"*. You can add as many users as you want using this method.
+### Running on Heroku
+Publish your app to heroku (or, you may want to [create a new one](#heroku-tldr) with a [mongo plugin](#mongo-tldr)). Since the changes you made to the user collection on your local machine will not reflect the state of the database on heroku, we will need to create some new users in the cloud.
 
 [*Back to top*](#contents)
 ***
