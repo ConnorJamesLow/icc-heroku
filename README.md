@@ -483,7 +483,7 @@ JWTs and Express Middleware are used to secure the getLogs functionality in our 
 
 To add a user on your local instance, start `mongo` and run `db.users.save({ name: "user1" });`.  
 
-To access the remote mongo database and add a user, you need to run `mongo <connection_string>` in your local terminal.  
+To access the remote mongo database and add a user to your heroku app, you need to run `mongo <connection_string>` in your local terminal.  
 
 Get your connection string by running `heroku addons:open mongolab` and following the instructions under **To connect using the mongo shell**. To get your username and password, open your application's settings on the [heroku dashboard](https://heroku.com/) and inspect the **Config Vars**. The credentials are found separated by a colon *(username:password)* in the connection string provided in the *MONGO_URI* variable.
 
