@@ -57,6 +57,7 @@ The JSON format consists of comma separated key-value pairs, where *keys are str
 ```
 
 # Deployment Instructions
+**Before you begin**: this section assumes you have the first version *(v1.0)* of the app code. You can download the version by visiting the [releases page](https://github.com/ConnorJamesLow/icc-heroku/releases) or by cloning the repo and performing a checkout on the appropriate branch: `git checkout 5b105b1cfbf6569e95ca35736df81aca823d2cfe`. 
 ### Setup on your local machine
 Clone or download this template project:  
 ```bash
@@ -131,7 +132,7 @@ git push heroku master
 [*Back to top*](#contents)
 
 # MongoDB and Express
-**Before you begin**: this section assumes you have the second version *(v2.0)* of the app code. You can download the version by visiting the [releases page](https://github.com/ConnorJamesLow/icc-heroku/releases). 
+**Before you begin**: this section assumes you have the second version *(v2.0)* of the app code. You can download the version by visiting the [releases page](https://github.com/ConnorJamesLow/icc-heroku/releases) or by cloning the repo and performing a checkout on the appropriate branch: `git checkout 45e212532193db5f8a1445728e53f3fd3fd91770`.    
 ### Local Install
 Though you don't need to install Mongo to run it in Heroku, you will want to have it for development purposes. If you haven't already, follow [this 
 tutorial](https://docs.mongodb.com/manual/tutorial/) (or [this one](https://www.tutorialspoint.com/mongodb/) for TutorialsPoint fans, if those exist) to install the community version of Mongo. For Windows, you may need to add the directory location of mongo.exe and mongod.exe to your [environment variables](https://dangphongvanthanh.wordpress.com/2017/06/12/add-mongos-bin-folder-to-the-path-environment-variable/). Run the `mongo` command to startup the server.
@@ -498,6 +499,6 @@ https://expressjs.com/en/api.html
 https://github.com/auth0/node-jsonwebtoken  
 
 
-<div style="text-align: center">This tutorial was created for the students in  Grand Canyon Univerity's <b>Innovative Computing Club</b> by Connor Low, Club President, Spring 2019. </div>
-<div style="text-align: center">&#128077;</div>  
-<div style="text-align: center"><em>Thanks everyone!</em></div>  
+<center>This tutorial was created for the students in  Grand Canyon Univerity's <b>Innovative Computing Club</b> by Connor Low, Club President, Spring 2019. </center>
+<center>&#128077;</center>  
+<center><em>Thanks everyone!</em></center>  
