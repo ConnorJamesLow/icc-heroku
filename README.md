@@ -21,6 +21,7 @@
    - [Authorization using JWTs](#Authorization-using-JWTs)
    - [Running Locally](#Running-Locally)
    - [Running on Heroku](#running-on-heroku)
+   - [A Final Note](#a-final-note)
    - [TL;DR](#JWT-TLDR)
 
 # What You'll Need
@@ -480,6 +481,9 @@ db.users.save({ name: "user1" });
 ```
 6. And that's it! You should be able to query your database with `db.users.find({})` and see your added user. You can go back to your heroku web app and authenticate to get your logs.  
 
+### A Final Note
+**Do not** assume everything in this section of the tutorial is a best practice. Or even a good practice. Sure it get's the job done, but really, you should be doing a lot of things differently, such as specifying the encryption algorithm in your jwt options and using the Authorization header in your requests rather than a query string. So, before you copy and paste this code into a more important application, do some research. I recommend starting with [this article](https://auth0.com/blog/critical-vulnerabilities-in-json-web-token-libraries/), published by Auth0.  
+ 
 ### JWT TL;DR
 JWTs and Express Middleware are used to secure the getLogs functionality in our node application. You will need to add a user to your mongo db in order to generate a JWT for authorization.
 
