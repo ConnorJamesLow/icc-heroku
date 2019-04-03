@@ -18,6 +18,7 @@
    - [A Quick Word About File Structure](#A-Quick-Word-About-File-Structure)
    - [An Introduction to Security with JWTs](#An-Introduction-to-Security-with-JWTs)
    - [Authentication using JWTs](#Authentication-using-JWTs)
+   - [Authorization using JWTs](#Authorization-using-JWTs)
 
 # What You'll Need
 ### Deploy to Heroku
@@ -381,11 +382,74 @@ xhr.addEventListener('readystatechange', function () {
   }
 });
 ```
-Now our client has a JWT!  
 
-[*Back to top*](#contents)
 
 ### Authorization Using JWTs
+Now that our client has a JWT, they can use it to access the secured routes in our Express API.  
+As we discovered in the [Express Middleware](#express-middleware) section, Express routes can use wild cards in routes, and the `next()` method to continue looking for additional matches; the combination of these allowed us to create the per-request middleware, which logged the requestor information (IP and HTTP method). We've leveraged that to create authentication middleware and restrict access to our `getLogs()` method. Take a look at [index.js](index.js). Supposed a user sent a *GET* request to the `/api/log` route:
+```js
+// This route matches. A next() call is made here, so we continue looking for more matching routes.
+app.all('/api/*', controller.loggingMiddleware);
+
+// This route does not match. Skip it!
+app.get('/api/login', controller.authenticate);
+
+// Another match. Here, the method will call next() only if the user has provided a valid jwt. (Keep reading to see how that works.)
+app.all('/api/*', middleware.authorize);
+
+// An exact match. No next() calls in this method, so it will finish our execution and return the result.
+app.get('/api/log', controller.getLogs);
+```
+Let's take a look at the authorization process:  
+1. The user clicks the **Get Logs** button on the [webpage](public/index.html), triggering the function defined in the **onclick** attribute of the button: 
+```html
+    <button onclick="populateLogs()">Get Logs</button>
+```
+2. The `populateLogs()` function defined in [site.js](public/site.js) calls the `getData()` method which has been modified to include the stored token cookie as a query parameter:
+```js
+// in getData()
+const token = getCookie('token');
+
+// ... some xhr setup ...
+
+xhr.open('GET', `/api/log?token=${token}`);
+xhr.setRequestHeader('cache-control', 'no-cache');
+```
+3. The request is sent and, in [index.js](index.js), the request in intercepted by our security middleware:
+```js
+app.all('/api/*', middleware.authorize);
+```
+4. In [SecurityMiddleware.js](src/SecurityMiddleware.js), our verification logic is invoked. If it passes, we call next() and execution continues. If it fails, the user receives a negative response and no data is exposed:
+```js 
+authorize(req, res, next) {
+  const { token } = req.query;
+  if (security.verifyToken(token)) {
+
+    // verified!
+    next();
+  } else {
+
+    // that token is invalid. Tell those hackers to come back with some id.
+    res.send({
+      message: 'Invalid token',
+      status: -1,
+      data: false
+    });
+  }
+}
+```
+5. In [Security.js](src/Security.js), the `verifyToken()` method tries to decode the token. The `SecurityMiddleware.authorize` method will use the response to decide whether the user is authenticated:
+```js
+verifyToken(token) {
+  try {
+    const credentials = jwt.verify(token, secret, options);
+    return credentials;
+  } catch (err) {
+    return null;
+  }
+}
+```
+6. If the token is valid, execution continues as normal and the logs are returned to the client!
 
 [*Back to top*](#contents)
 ***

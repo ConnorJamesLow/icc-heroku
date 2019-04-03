@@ -101,15 +101,19 @@ function populateLogs() {
   getData((raw) => {
     const { data } = JSON.parse(raw);
     console.log(data);
+    if (data) {
 
-    // get the ul#logs target element
-    const target = document.getElementById('logs');
+      // get the ul#logs target element
+      const target = document.getElementById('logs');
 
-    // build an array of li elements
-    const listItems = data.map((log) => `<li id=${log._id}>${moment(log.date).format('MM-DD-YYYY @ hh:mm A')}: ${log.message}</li>`);
+      // build an array of li elements
+      const listItems = data.map((log) => `<li id=${log._id}>${moment(log.date).format('MM-DD-YYYY @ hh:mm A')}: ${log.message}</li>`);
 
-    // add the array to the element
-    target.innerHTML = listItems.toString().replace(/,/g, '');
+      // add the array to the element
+      target.innerHTML = listItems.toString().replace(/,/g, '');
+    } else {
+      alert('The server said he doesn\'t know who you are, so no logs for you!');
+    }
   });
 }
 
