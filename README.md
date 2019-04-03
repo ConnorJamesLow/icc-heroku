@@ -21,6 +21,7 @@
    - [Authorization using JWTs](#Authorization-using-JWTs)
    - [Running Locally](#Running-Locally)
    - [Running on Heroku](#running-on-heroku)
+   - [TL;DR](#JWT-TLDR)
 
 # What You'll Need
 ### Deploy to Heroku
@@ -460,7 +461,31 @@ db.users.save({ name: "user1" });
 ```
 You can see the new user by typing `db.users.find({})`. Run your app again and, when prompted, say you are *"user1"*. You can add as many users as you want using this method.
 ### Running on Heroku
-Publish your app to heroku (or, you may want to [create a new one](#heroku-tldr) with a [mongo plugin](#mongo-tldr)). Since the changes you made to the user collection on your local machine will not reflect the state of the database on heroku, we will need to create some new users in the cloud.
+Publish your app to heroku (or, you may want to [create a new one](#heroku-tldr) with a [mongo plugin](#mongo-tldr)). Since the changes you made to the user collection on your local machine will not reflect the state of the database on heroku, we will need to create some new users in the cloud. We can use the same process as we used locally and create the users in the mongo shell.  
+To access your the remote mongo shell for your application, do the following:
+1. Run the following command in the root folder of the heroku app: `heroku addons:open mongolab`. The command should open up a new browser window for **mLab**.
+2. Find the section where it says *"To connect using the mongo shell:"* and copy the first part of the shell command, leaving off the `u` and `p` options: `mongo ds123456.mlab.com:12345/heroku_ab123xyz`. 
+3. Go to your [heroku dashboard](https://heroku.com/) and open up your app. Under the **Settings** tab, find the section named **Config Vars**. Click the **Reveal Config Vars** button. Click on the edit button (but don't change anything!) for *MONGODB_URI*. Our username and password are stored in this connection string, separated by a colon. It should look something like this:
+```txt
+mongodb://username_string:password_string_1234abcd@ds123456.mlab.com:37389/username_string
+```
+4. Copy the username and password into your command so it looks like this:
+```bash
+mongo ds123456.mlab.com:12345/heroku_ab123xyz -u username_string -p password_string_1234abcd
+```
+5. Press enter. If you copied the credentials properly, you should have an open session with your remote mongo instance! Go ahead an add the user to the `db.users` colletion. No need to switch databases (with a `use` command), since you are already connected to the one your application uses.
+```bash
+db.users.save({ name: "user1" });
+```
+6. And that's it! You should be able to query your database with `db.users.find({})` and see your added user. You can go back to your heroku web app and authenticate to get your logs. &#128077;
+### JWT TL;DR
+JWTs and Express Middleware are used to secure the getLogs functionality in our node application. You will need to add a user to your mongo db in order to generate a JWT for authorization.
+
+To add a user on your local instance, start `mongo` and run `db.users.save({ name: "user1" });`.  
+
+To access the remote mongo database and add a user, you need to run `mongo <connection_string>` in your local terminal.  
+
+Get your connection string by running `heroku addons:open mongolab` and following the instructions under **To connect using the mongo shell**. To get your username and password, open your application's settings on the [heroku dashboard](https://heroku.com/) and inspect the **Config Vars**. The credentials are found separated by a colon *(username:password)* in the connection string provided in the *MONGO_URI* variable.
 
 [*Back to top*](#contents)
 ***
