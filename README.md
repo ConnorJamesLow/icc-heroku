@@ -477,7 +477,8 @@ mongo ds123456.mlab.com:12345/heroku_ab123xyz -u username_string -p password_str
 ```bash
 db.users.save({ name: "user1" });
 ```
-6. And that's it! You should be able to query your database with `db.users.find({})` and see your added user. You can go back to your heroku web app and authenticate to get your logs. &#128077;
+6. And that's it! You should be able to query your database with `db.users.find({})` and see your added user. You can go back to your heroku web app and authenticate to get your logs.  
+
 ### JWT TL;DR
 JWTs and Express Middleware are used to secure the getLogs functionality in our node application. You will need to add a user to your mongo db in order to generate a JWT for authorization.
 
@@ -488,9 +489,15 @@ To access the remote mongo database and add a user to your heroku app, you need 
 Get your connection string by running `heroku addons:open mongolab` and following the instructions under **To connect using the mongo shell**. To get your username and password, open your application's settings on the [heroku dashboard](https://heroku.com/) and inspect the **Config Vars**. The credentials are found separated by a colon *(username:password)* in the connection string provided in the *MONGO_URI* variable.
 
 [*Back to top*](#contents)
+
 ***
 #### Documentation Referenced
 https://devcenter.heroku.com/articles/deploying-nodejs  
 https://docs.mongodb.com/manual/tutorial/  
 https://expressjs.com/en/api.html  
 https://github.com/auth0/node-jsonwebtoken  
+
+
+<div style="text-align: center">This tutorial was created for the students in  Grand Canyon Univerity's <b>Innovative Computing Club</b> by Connor Low, Club President, Spring 2019. </div>
+<div style="text-align: center">&#128077;</div>  
+<div style="text-align: center"><em>Thanks everyone!</em></div>  
