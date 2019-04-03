@@ -14,6 +14,7 @@
    - [Express REST API](#express-rest-api)
    - [Express Middleware](#express-middleware)
    - [TL;DR](#mongo-tldr)
+ - [JSON Web Tokens](#json-web-tokens)
 
 # What You'll Need
 ### Deploy to Heroku
@@ -123,7 +124,7 @@ git push heroku master
 [*Back to top*](#contents)
 
 # MongoDB and Express
-**Before you begin**, make sure you have the most recent release of the second version app code. Do a git pull, or clone the repository code. 
+**Before you begin**: this section assumes you have the second version *(v2.0)* of the app code. You can download the version by visiting the [releases page](https://github.com/ConnorJamesLow/icc-heroku/releases). 
 ### Local Install
 Though you don't need to install Mongo to run it in Heroku, you will want to have it for development purposes. If you haven't already, follow [this 
 tutorial](https://docs.mongodb.com/manual/tutorial/) (or [this one](https://www.tutorialspoint.com/mongodb/) for TutorialsPoint fans, if those exist) to install the community version of Mongo. For Windows, you may need to add the directory location of mongo.exe and mongod.exe to your [environment variables](https://dangphongvanthanh.wordpress.com/2017/06/12/add-mongos-bin-folder-to-the-path-environment-variable/). Run the `mongo` command to startup the server.
@@ -248,8 +249,54 @@ app.all('/api/*', (req, res, next) => {
 ```
 [*Back to top*](#contents)
 
+# JSON Web Tokens
+**Before you begin**: this section assumes you have the third version *(v3.0)* of the app code. You can download the version by visiting the [releases page](https://github.com/ConnorJamesLow/icc-heroku/releases). 
+### A Quick Word About File Structure
+Or, [skip ahead](#An-Introduction-to-Security-with-JWTs). If you must.  
+
+If you've walked through each version up to this point, you may notice that there is a new file structure for this version of the repository. If you look at [index.js](index.js), you will notice that the file is much shorter now. A lot of the functionality has been externalized to the [*src/*](src/) directory. There are several benefits to doing this: first, we remove a lot of clutter in our index.js file and improve it's readability; second, this practice is useful for making loosely coupled code, which translates to reusablity; third, it practices encapsulation, hiding away logic that isn't necessary to know about in the current context. There may be a better structure than the one I've provided in *src/*, but it's still a major improvement from a single file structure, especially since we are about to add more content. 
+
+Alright. Let's talk about security.
+### An Introduction to Security with JWTs
+Now that we have begun to store data, we should start thinking about securing our web application so we can control who has access to the Express API we have created. I have chosen JSON Web Tokens (JWTs) to secure the application.  
+Auth0 provides a library for implementing JWTs; this has been installed via npm: `npm i jsonwebtoken`. Our [package.json](package.json) dependencies now should look like this:
+```json
+  "dependencies": {
+    "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.4.17"
+  }
+```  
+Open up [Security.js](src/Security.js) in *src/*. Here, we can see the basic functionality provided by the jwt library. In particular, notice these two method calls:
+```js
+// in getToken()
+jwt.sign({ credentials }, secret, options);
+// note: placing a variable name in { } is equivalent to saying { credentails: credentials }
+// If I wanted to give the information a different name, I could use the standard syntax, e.g. { stuff: credentials }
+
+// in verifyToken()
+jwt.verify(token, secret, options);
+```
+The `sign` method is given three parameters: `{ credentials }` specifies the payload in the jwt. This could contain a username, privileges, birthday, or any other information that is used throughout the application. Here, I've provided one item: the user's `credentials`. But you could pass in any number of items:
+```js
+jwt.sign({ 
+  name: 'General Kenobie', 
+  role: 'Jedi Master', 
+  greeting: 'Hello there.' 
+}, secret, options);
+```
+The `secret` is something only the developers know. The secret is used to sign a token during encryption so the token can only be decrypted if the same secret is provided with an encrypted token. This prevents other people from spoofing tokens to bypass your security.  
+Finally, `options` allows us to provide some information and instructions to the jwt itself. In this case, I've included an expiration:
+```js
+const options = {
+  expiresIn: 60 // seconds
+};
+```
+This all transaltes to `jwt.sign({ credentials: 'username' }, 'Secret here' ,{ expiresIn: 60 })`.
+
 ***
 #### Documentation Referenced
 https://devcenter.heroku.com/articles/deploying-nodejs  
 https://docs.mongodb.com/manual/tutorial/  
-https://expressjs.com/en/api.html
+https://expressjs.com/en/api.html  
+https://github.com/auth0/node-jsonwebtoken  

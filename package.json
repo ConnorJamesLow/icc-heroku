@@ -16,6 +16,7 @@
   "homepage": "https://github.com/ConnorJamesLow/icc-heroku#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.17"
   }
 }
