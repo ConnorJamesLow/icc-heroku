@@ -15,6 +15,9 @@
    - [Express Middleware](#express-middleware)
    - [TL;DR](#mongo-tldr)
  - [JSON Web Tokens](#json-web-tokens)
+   - [A Quick Word About File Structure](#A-Quick-Word-About-File-Structure)
+   - [An Introduction to Security with JWTs](#An-Introduction-to-Security-with-JWTs)
+   - [Authentication using JWTs](#Authentication-using-JWTs)
 
 # What You'll Need
 ### Deploy to Heroku
@@ -292,8 +295,99 @@ const options = {
   expiresIn: 60 // seconds
 };
 ```
-This all transaltes to `jwt.sign({ credentials: 'username' }, 'Secret here' ,{ expiresIn: 60 })`.
+This all transaltes to `jwt.sign({ credentials: 'username' }, 'Secret here' ,{ expiresIn: 60 })`, which returns an encoded token. It will look something like this:
+```json
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFscyI6W3siX2lkIjoiNWNhNTFjZjU4YTk3OWQwOGZjMWQxOGM5IiwibmFtZSI6IkNvbm5vciJ9XSwiaWF0IjoxNTU0MzI2MTE5LCJleHAiOjE1NTQzMjYxNzl9.wcAvN4XadKjJXrC8AkUbtwEYO1XsyBMTUfjGR0WIigI"
+```
+There's a lot more to JWTs that I won't get into here. I recommend you check out [jwt.io](https://jwt.io/) or, to learn about this library, read the [documentation on GitHub](https://github.com/auth0/node-jsonwebtoken).  
 
+### Authentication Using JWTs
+I've made a lot of changes in order to implement JWTs. It can get a bit confusing, so let me start by unpacking the process a little bit.  
+1. A user visits our page. They are prompted to tell the script ([site.js](public/site.js)) who they are. These credentials are included as a [query string](https://help.marketruler.com/wiki/What_is_the_correct_syntax_for_query_strings%3F) parameter and sent to `api/login`:
+```js
+  // from retrieveToken()
+  const credentials = prompt('Who are you?');
+  
+  // ...some xhr setup...
+
+  xhr.open('GET', `/api/login?credentials=${credentials}`);
+```
+2. In [index.js](index.js), our request to `api/login` is routed to the `authenticate()` function in our `Controller`:
+```js
+app.get('/api/login', controller.authenticate);
+```
+3. In [Controller.js](src/Controller.js), we get the credentials from the request query parameters. These are passed to our Database method, `getUser()`, along with some handler callback functions:
+```js
+// from authenticate()
+const { credentials } = req.query;
+
+// ... callbacks defined ...
+
+db.getUser(credentials, handleSuccess, handleFail);
+```
+4. In [Database.js](src/Database.js), we use a mongoose model to query the `users` collection in our database. The results are passed to the handlers defined in `Controller.authenticate()`:
+```js
+getUser(name, onSuccess, onFail) {
+  User.find({ name }, (err, documents) => {
+    if (err) {
+      onFail(err);
+    } else {
+      onSuccess(documents);
+    }
+  });
+}
+```
+5. Back in the `authenticate()` method in [Controller.js](src/Controller.js), you can see how the callbacks handle the database results, sending them back to the client:
+```js
+const handleSuccess = (data) => {
+  if (data.length > 0) {
+    // Results found! Create a token in the database.
+    const token = security.getToken(data);
+    res.send({
+      message: 'OK',
+      status: 0,
+      data: token
+    });
+  } else {
+    // If no results are found (i.e. length == 0), then the user must not be in the database.
+    res.send({
+      message: 'No user',
+      status: 0,
+      data: false
+    });
+  }
+}
+```
+6. In [Security.js](src/Security.js), the `getToken()` method mentioned earlier signs the user's credentials and creates an encoded JSON Web Token.
+```js
+  getToken(credentials) {
+    const token = jwt.sign({ credentials }, secret, options);
+    return token;
+  }
+```
+7. Back in our client, our xhr script [site.js](public/site.js) will receive the response, triggering our event listener callback, which sets the token as a cookie:
+```js
+xhr.addEventListener('readystatechange', function () {
+
+  // ready state 4 means the request has received a response
+  if (this.readyState === 4) {
+    const { data } = JSON.parse(this.responseText);
+    if (data) {
+      console.log('Got a token:', data);
+      setCookie('token', data);
+    } else {
+      alert('I don\' know you');
+    }
+  }
+});
+```
+Now our client has a JWT!  
+
+[*Back to top*](#contents)
+
+### Authorization Using JWTs
+
+[*Back to top*](#contents)
 ***
 #### Documentation Referenced
 https://devcenter.heroku.com/articles/deploying-nodejs  

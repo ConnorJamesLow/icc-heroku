@@ -69,13 +69,19 @@ class Controller {
     // If the query succeeds, return the token to the client. They need it for authorization.
     const handleSuccess = (data) => {
       if (data.length > 0) {
+
+        // Results found! Create a token in the database.
         const token = security.getToken(data);
+
+        // send the encoded token back to the client.
         res.send({
           message: 'OK',
           status: 0,
           data: token
         });
       } else {
+
+        // If no results are found (i.e. length == 0), then the user must not be in the database.
         res.send({
           message: 'No user',
           status: 0,
