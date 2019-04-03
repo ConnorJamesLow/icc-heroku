@@ -259,11 +259,11 @@ app.all('/api/*', (req, res, next) => {
 [*Back to top*](#contents)
 
 # JSON Web Tokens
-**Before you begin**: this section assumes you have the third version *(v3.0)* of the app code. You can download the version by visiting the [releases page](https://github.com/ConnorJamesLow/icc-heroku/releases). 
+**Before you begin**: this section assumes you have the third version *(v3.0)* of the app code. You can download the version by visiting the [releases page](https://github.com/ConnorJamesLow/icc-heroku/releases) or by cloning the repo and performing a checkout on the appropriate branch: `git checkout 94fe71cf6bb2ba754a0efdbd37b41bcce3672e36`. 
 ### A Quick Word About File Structure
 Or, [skip ahead](#An-Introduction-to-Security-with-JWTs). If you must.  
 
-If you've walked through each version up to this point, you may notice that there is a new file structure for this version of the repository. If you look at [index.js](index.js), you will notice that the file is much shorter now. A lot of the functionality has been externalized to the [*src/*](src/) directory. There are several benefits to doing this: first, we remove a lot of clutter in our index.js file and improve it's readability; second, this practice is useful for making loosely coupled code, which translates to reusablity; third, it practices encapsulation, hiding away logic that isn't necessary to know about in the current context. There may be a better structure than the one I've provided in *src/*, but it's still a major improvement from a single file structure, especially since we are about to add more content. 
+If you've walked through each version up to this point, you may notice that there is a new file structure for this version of the repository. [index.js](index.js), for example, is much shorter now; a lot of the functionality has been externalized to the [*src/*](src/) directory. There are several benefits to this approach: first, we remove a lot of clutter in our index.js file and improve it's readability; second, this practice is useful for making loosely coupled code, which translates to reusablity; third, it practices encapsulation, hiding away logic that isn't necessary to know about in the current context. There may be a better structure than the one I've provided in *src/*, but it's still a major improvement from a single file structure, especially since we are about to add more content. 
 
 Alright. Let's talk about security.
 ### An Introduction to Security with JWTs
