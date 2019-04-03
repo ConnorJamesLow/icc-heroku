@@ -263,7 +263,7 @@ app.all('/api/*', (req, res, next) => {
 ### A Quick Word About File Structure
 Or, [skip ahead](#An-Introduction-to-Security-with-JWTs). If you must.  
 
-If you've walked through each version up to this point, you may notice that there is a new file structure for this version of the repository. [index.js](index.js), for example, is much shorter now; a lot of the functionality has been externalized to the [*src/*](src/) directory. There are several benefits to this approach: first, we remove a lot of clutter in our index.js file and improve it's readability; second, this practice is useful for making loosely coupled code, which translates to reusablity; third, it practices encapsulation, hiding away logic that isn't necessary to know about in the current context. There may be a better structure than the one I've provided in *src/*, but it's still a major improvement from a single file structure, especially since we are about to add more content. 
+If you've walked through each version up to this point, you may notice that there is a new file structure for this version of the repository. [index.js](index.js), for example, is much shorter now; a lot of the functionality has been externalized to the [*src/*](src/) directory. There are several benefits to this approach: first, we remove a lot of clutter in our index.js file and improve it's readability; second, this practice is useful for making loosely coupled code, which translates to reusablity; third, it demonstrates encapsulation, hiding away logic that isn't necessary to know about in the current context. There may be a better structure than the one I've provided in *src/*, but it's still a major improvement from a single file structure, especially since we are about to add more content. 
 
 Alright. Let's talk about security.
 ### An Introduction to Security with JWTs
@@ -301,7 +301,7 @@ const options = {
   expiresIn: 60 // seconds
 };
 ```
-This all transaltes to `jwt.sign({ credentials: 'username' }, 'Secret here' ,{ expiresIn: 60 })`, which returns an encoded token. It will look something like this:
+This all transaltes to `jwt.sign({ credentials: 'username' }, 'Secret here', { expiresIn: 60 })`, which returns an encoded token. It will look something like this:
 ```json
 "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjcmVkZW50aWFscyI6W3siX2lkIjoiNWNhNTFjZjU4YTk3OWQwOGZjMWQxOGM5IiwibmFtZSI6IkNvbm5vciJ9XSwiaWF0IjoxNTU0MzI2MTE5LCJleHAiOjE1NTQzMjYxNzl9.wcAvN4XadKjJXrC8AkUbtwEYO1XsyBMTUfjGR0WIigI"
 ```
