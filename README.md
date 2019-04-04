@@ -1,3 +1,7 @@
+# Get Started
+Clone this repository by pasting `git clone https://github.com/ConnorJamesLow/icc-heroku.git` into your terminal.  
+*If you do not have git, you will need to download that first. See [What You'll Need](#what-youll-need).*  
+
 # Contents
  - [What You'll Need](#what-youll-need)
  - [Tips](#Tips)
