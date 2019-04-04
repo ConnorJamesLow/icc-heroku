@@ -501,10 +501,12 @@ https://devcenter.heroku.com/articles/deploying-nodejs
 https://docs.mongodb.com/manual/tutorial/  
 https://expressjs.com/en/api.html  
 https://github.com/auth0/node-jsonwebtoken  
+***
 
+<br/>
 
 <div align="center">
-<p>This tutorial was created for the students in  Grand Canyon Univerity's <b>Innovative Computing Club</b> by Connor Low, Club President, Spring 2019.</p>
+<p>This tutorial was created for the students of Grand Canyon Univerity's <b>Innovative Computing Club</b> by Connor Low, Club President, Spring 2019.</p>
 <p>&#128077;</p>  
 <em>Thanks everyone!</em>
 </div>
